@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
 
-    <title>Narrow Jumbotron Template for Bootstrap</title>
+    <title>Blog</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./Narrow Jumbotron Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
@@ -44,6 +44,7 @@
             url: "http://localhost:8080/blog/name",
           success: function(result) {
             $("#blog-name").text(result);
+            $("title").text(result);
           },
           error: function(e) {
             alert(JSON.stringify(e));
@@ -108,8 +109,8 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="javascript:void(0)" onclick="loadPosts()">文章</a></li>
-            <li role="presentation"><a href="javascript:void(0)">关于</a></li>
-            <li role="presentation"><a href="javascript:void(0)">本站源码</a></li>
+<!--            <li role="presentation" class="not-active" id="about_btn"><a href="javascript:void(0)">关于</a></li>-->
+            <li role="presentation"><a href="https://github.com/wuleiaty/spring-boot-blog">博客源码</a></li>
           </ul>
         </nav>
         <h3 class="text-muted" id="blog-name"></h3>
