@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://v3.bootcss.com/examples/jumbotron-narrow/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./Narrow Jumbotron Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./Narrow Jumbotron Template for Bootstrap_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./Narrow Jumbotron Template for Bootstrap_files/jumbotron-narrow.css" rel="stylesheet">
+    <link href="Narrow Jumbotron Template for Bootstrap_files/post-style.css" rel="stylesheet">
+
+<!--    <link rel="dns-prefetch" href="//cdn.bootcss.com" />-->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="./Narrow Jumbotron Template for Bootstrap_files/ie-emulation-modes-warning.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      $(function() {
+          loadPosts();
+
+        $.ajax({
+            type: "get",
+            // dataType:'json',
+            url: "http://localhost:8080/blog/name",
+          success: function(result) {
+            $("#blog-name").text(result);
+          },
+          error: function(e) {
+            alert(JSON.stringify(e));
+          }
+        });
+
+          $.ajax({
+              type: "get",
+              url: "http://localhost:8080/blog/visits",
+              success: function (result) {
+                  $("#visits").text(result);
+              }
+          });
+
+          $.ajax({
+              type: "post",
+              url: "http://localhost:8080/blog/visit",
+              success: function (result) {
+                  console.log("new visit");
+              }
+          });
+      });
+
+      function loadPosts() {
+          $(".content").html('');
+          $.ajax({
+              type: "get",
+              url: "http://localhost:8080/blog/posts",
+              dataType: "json",
+              success: function (result) {
+                  for (var i = 0; i < result.length; i++) {
+                      $(".content").append("<h4 id=\"" + result[i].name + "\" onclick=postClick(this.id)>" + result[i].title + "</h4>\n<p></p>")
+                  }
+              }
+          });
+      }
+
+      function postClick(postName) {
+          $.ajax({
+              type: "get",
+              url: "http://localhost:8080/blog/post/" + postName,
+              success: function (result) {
+                  if (!result == '') {
+                      $(".content").html(result);
+                  }
+                  else {
+                      alert("empty content")
+                  }
+              }
+          });
+          window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('content')]);
+      }
+    </script>
+
+  </head>
+
+  <body>
+
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="javascript:void(0)" onclick="loadPosts()">文章</a></li>
+            <li role="presentation"><a href="javascript:void(0)">关于</a></li>
+            <li role="presentation"><a href="javascript:void(0)">本站源码</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted" id="blog-name"></h3>
+      </div>
+
+      <div class="marketing">
+        <div class="content" id="content">
+
+        </div>
+
+        
+      </div>
+
+      <footer class="footer">
+          <p>访问次数：<a id="visits">0</a></p>
+        <p>© 2020 WuLei.</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./Narrow Jumbotron Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
